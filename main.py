@@ -51,17 +51,24 @@ file6 = open("relevance-tfidf-cosine.csv", 'a')
 
 
 for q in range(225):
-    # compute similarity between query and all docs (tf-idf) and get top 10 relevant
-    y_pred = [True, True, True, True, True, True, True, True, True, True]
+    limit = 100
+    relevant_count = len(relevant[q])
+    irrelevant_count = limit-relevant_count
+    y_pred = []
+    for i in range(relevant_count):
+        y_pred.append(True)
+    for i in range(irrelevant_count):
+        y_pred.append(False)
+
 
     sim = np.array(euclidean_distances(binary_matrix[1400 + q], binary_matrix[0:1400])[0])
     for s in range(1399):
         file1.write(`sim[s]` + ",")
     file1.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
@@ -74,9 +81,9 @@ for q in range(225):
         file2.write(`sim[s]` + ",")
     file2.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
@@ -89,9 +96,9 @@ for q in range(225):
         file3.write(`sim[s]` + ",")
     file3.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
@@ -104,9 +111,9 @@ for q in range(225):
         file4.write(`sim[s]` + ",")
     file4.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
@@ -119,9 +126,9 @@ for q in range(225):
         file5.write(`sim[s]` + ",")
     file5.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
@@ -134,9 +141,9 @@ for q in range(225):
         file6.write(`sim[s]` + ",")
     file6.write(`sim[1399]` + "\n")
 
-    topRelevant = sim.argsort()[-10:][::-1] + 1
+    topRelevant = sim.argsort()[-limit:][::-1] + 1
     y_true = []
-    for t in range(10):
+    for t in range(limit):
         if topRelevant[t] in relevant[q]:
             y_true.append(True)
         else:
